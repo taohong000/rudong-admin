@@ -21,131 +21,130 @@ import Layout from '../views/layout/Layout'
     icon: 'svg-name'             the icon show in the sidebar,
   }
 **/
-export const constantRouterMap = [
-  { path: '/login', component: () => import('@/views/login/index'), hidden: true },
-  { path: '/404', component: () => import('@/views/404'), hidden: true },
+export const constantRouterMap = [{
+  path: '/login',
+  component: () => import('@/views/login/index'),
+  hidden: true
+},
+{
+  path: '/404',
+  component: () => import('@/views/404'),
+  hidden: true
+},
 
-  {
-    path: '/',
-    component: Layout,
-    redirect: '/dashboard',
-    name: 'Dashboard',
-    hidden: true,
-    children: [{
-      path: 'dashboard',
-      component: () => import('@/views/dashboard/index')
-    }]
-  },
+{
+  path: '/',
+  component: Layout,
+  redirect: '/dashboard',
+  name: 'Dashboard',
+  hidden: true,
+  children: [{
+    path: 'dashboard',
+    component: () => import('@/views/dashboard/index')
+  }]
+},
 
-  {
-    path: '/example',
-    component: Layout,
-    redirect: '/example/table',
-    name: 'Example',
-    meta: { title: 'Example', icon: 'example' },
-    children: [
-      {
-        path: 'table',
-        name: 'Table',
-        component: () => import('@/views/table/index'),
-        meta: { title: 'Table', icon: 'table' }
-      },
-      {
-        path: 'tree',
-        name: 'Tree',
-        component: () => import('@/views/tree/index'),
-        meta: { title: 'Tree', icon: 'tree' }
-      }
-    ]
-  },
-
-  {
-    path: '/form',
-    component: Layout,
-    children: [
-      {
-        path: 'index',
-        name: 'Form',
-        component: () => import('@/views/form/index'),
-        meta: { title: 'Form', icon: 'form' }
-      }
-    ]
-  },
-
-  {
-    path: '/nested',
-    component: Layout,
-    redirect: '/nested/menu1',
-    name: 'Nested',
+  // 点餐统计
+{
+  path: '/order',
+  component: Layout,
+  children: [{
+    path: 'index',
+    name: 'order',
+    component: () => import('@/views/order/index'),
     meta: {
-      title: 'Nested',
-      icon: 'nested'
+      title: '点餐统计',
+      icon: 'form'
+    }
+  }]
+},
+
+  // 点餐系统
+{
+  path: '/cookbook',
+  component: Layout,
+  name: 'cookbook',
+  redirect: '/cookbook/index',
+  meta: {
+    title: '菜谱管理'
+  },
+  children: [{
+    path: 'index',
+    name: 'cookbookIndex',
+    component: () => import('@/views/cookbook/index'),
+    meta: {
+      title: '菜谱列表',
+      icon: 'table'
+    }
+  }, {
+    path: 'add',
+    name: 'cookbookAdd',
+    component: () => import('@/views/cookbook/addAndEdit'),
+    meta: {
+      title: '添加菜谱'
     },
-    children: [
-      {
-        path: 'menu1',
-        component: () => import('@/views/nested/menu1/index'), // Parent router-view
-        name: 'Menu1',
-        meta: { title: 'Menu1' },
-        children: [
-          {
-            path: 'menu1-1',
-            component: () => import('@/views/nested/menu1/menu1-1'),
-            name: 'Menu1-1',
-            meta: { title: 'Menu1-1' }
-          },
-          {
-            path: 'menu1-2',
-            component: () => import('@/views/nested/menu1/menu1-2'),
-            name: 'Menu1-2',
-            meta: { title: 'Menu1-2' },
-            children: [
-              {
-                path: 'menu1-2-1',
-                component: () => import('@/views/nested/menu1/menu1-2/menu1-2-1'),
-                name: 'Menu1-2-1',
-                meta: { title: 'Menu1-2-1' }
-              },
-              {
-                path: 'menu1-2-2',
-                component: () => import('@/views/nested/menu1/menu1-2/menu1-2-2'),
-                name: 'Menu1-2-2',
-                meta: { title: 'Menu1-2-2' }
-              }
-            ]
-          },
-          {
-            path: 'menu1-3',
-            component: () => import('@/views/nested/menu1/menu1-3'),
-            name: 'Menu1-3',
-            meta: { title: 'Menu1-3' }
-          }
-        ]
-      },
-      {
-        path: 'menu2',
-        component: () => import('@/views/nested/menu2/index'),
-        meta: { title: 'menu2' }
-      }
-    ]
+    hidden: true
   },
-
   {
-    path: 'external-link',
-    component: Layout,
-    children: [
-      {
-        path: 'https://panjiachen.github.io/vue-element-admin-site/#/',
-        meta: { title: 'External Link', icon: 'link' }
-      }
-    ]
-  },
+    path: 'edit/:id',
+    name: 'cookbookEdit',
+    component: () => import('@/views/cookbook/addAndEdit'),
+    meta: {
+      title: '修改菜谱'
+    },
+    hidden: true
+  }
+  ]
+},
 
-  { path: '*', redirect: '/404', hidden: true }
+  // 人员管理
+{
+  path: '/user',
+  component: Layout,
+  name: 'user',
+  redirect: '/user/index',
+  meta: {
+    title: '人员管理'
+  },
+  children: [{
+    path: 'index',
+    name: 'userIndex',
+    component: () => import('@/views/user/index'),
+    meta: {
+      title: '人员列表',
+      icon: 'user'
+    }
+
+  }, {
+    path: 'add',
+    name: 'userAdd',
+    component: () => import('@/views/user/addAndEdit'),
+    meta: {
+      title: '添加人员'
+    },
+    hidden: true
+  }, {
+    path: 'edit/:id',
+    name: 'userEdit',
+    component: () => import('@/views/user/addAndEdit'),
+    meta: {
+      title: '修改人员'
+    },
+    hidden: true
+  }]
+},
+
+{
+  path: '*',
+  redirect: '/404',
+  hidden: true
+}
 ]
 
 export default new Router({
   // mode: 'history', //后端支持可开
-  scrollBehavior: () => ({ y: 0 }),
+  scrollBehavior: () => ({
+    y: 0
+  }),
   routes: constantRouterMap
 })
